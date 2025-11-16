@@ -7,47 +7,81 @@ async function fetchRandomFoodImage() {
   return data.image || response.url;
 }
 
-// Fetch the 3 images at the same time
+// Fetch multiple images in parallel
 async function fetchMultiple(n = 3) {
-  const promises = Array.from({ length: n }, () => fetchRandomFoodImage());
-  return Promise.all(promises);
+  return Promise.all(Array.from({ length: n }, () => fetchRandomFoodImage()));
 }
 
-// Minimal foodmenu: assumes DOM element and fetches succeed
+// Minimal foodmenu: fetch and render 3 images with labels
 async function foodmenu() {
   const container = document.querySelector('#food-menu');
+  if (!container) return;
   const urls = await fetchMultiple(3);
-// create a label from the URL
+
   function labelFromUrl(url) {
     const u = new URL(url);
-    const parts = u.pathname.split('/').filter(Boolean);
-    let last = parts.length ? parts[parts.length - 1] : u.hostname;
-    last = last.split('?')[0].split('#')[0]; 
-    last = last.replace(/\.[^/.]+$/, ''); 
-    last = last.replace(/[-_]+/g, ' '); 
-    last = last.replace(/\d+/g, ''); 
-    last = last.replace(/\s+/g, ' ').trim(); 
-    last = last.replace(/\b\w/g, (c) => c.toUpperCase()); 
+    let last = u.pathname.split('/').filter(Boolean).pop() || u.hostname;
+    last = last.split('?')[0].split('#')[0];
+    last = last.replace(/\.[^/.]+$/, '').replace(/[-_]+/g, ' ').replace(/\d+/g, '').replace(/\s+/g, ' ').trim();
+    last = last.replace(/\b\w/g, (c) => c.toUpperCase());
     return last || 'Food Image';
   }
 
   container.innerHTML = urls
-    .map((url) => {
-      const label = labelFromUrl(url);
-      return `
-        <figure class="card text-center" style="width: 12rem;">
-          <img src="${url}" alt="${label}" class="card-img-top" >
-          <figcaption class="card-body"><p class="card-text mb-0">${label}</p></figcaption>
-        </figure>
-      `;
-    })
+    .map((url) => `
+      <figure>
+        <img src="${url}" alt="${labelFromUrl(url)}" loading="lazy">
+        <figcaption>${labelFromUrl(url)}</figcaption>
+      </figure>
+    `)
     .join('');
 }
 
-// runs without a button to activate
+// GPA Calculator
 document.addEventListener('DOMContentLoaded', () => {
-  const container = document.querySelector('#food-menu');
-  if (container) {
-    foodmenu();
-  }
+  if (document.querySelector('#food-menu')) foodmenu();
+
+  const table = document.getElementById('gpa-table');
+  if (!table) return;
+
+  const points = { A: 4.0, 'A-': 3.7, 'B+': 3.3, B: 3.0, 'B-': 2.7, 'C+': 2.3, C: 2.0, 'C-': 1.7, 'D+': 1.3, D: 1.0, F: 0 };
+
+  document.getElementById('add-row').addEventListener('click', () => {
+    table.querySelector('tbody').insertAdjacentHTML(
+      'beforeend',
+      '<tr>' +
+        '<td><input type="number" min="0" step="0.5" class="credits" value="3"></td>' +
+        '<td>' +
+          '<select class="grade">' +
+            '<option value="">Select</option>' +
+            '<option>A</option><option>A-</option><option>B+</option><option>B</option><option>B-</option>' +
+            '<option>C+</option><option>C</option><option>C-</option><option>D+</option><option>D</option>' +
+            '<option>F</option>' +
+          '</select>' +
+        '</td>' +
+        '<td><button class="remove-row">Remove</button></td>' +
+      '</tr>'
+    );
+  });
+
+  table.querySelector('tbody').addEventListener('click', (e) => {
+    if (e.target.matches('.remove-row')) e.target.closest('tr').remove();
+  });
+
+  document.getElementById('calc').addEventListener('click', () => {
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+    let totalPts = 0, totalCr = 0;
+    rows.forEach((r) => {
+      const cr = parseFloat(r.querySelector('.credits').value) || 0;
+      const g = r.querySelector('.grade').value;
+      if (!cr || !g) return;
+      const gp = points[g];
+      if (gp == null) return;
+      totalPts += gp * cr;
+      totalCr += cr;
+    });
+    const out = document.getElementById('gpa-result');
+    if (!totalCr) out.innerHTML = '<div class="text-danger">Enter credits and grades to calculate GPA.</div>';
+    else out.innerHTML = `<div>Semester GPA: ${(totalPts / totalCr).toFixed(2)}</div>`;
+  });
 });
