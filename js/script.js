@@ -29,10 +29,12 @@ async function foodmenu() {
 
   container.innerHTML = urls
     .map((url) => `
-      <figure>
-        <img src="${url}" alt="${labelFromUrl(url)}" loading="lazy">
-        <figcaption>${labelFromUrl(url)}</figcaption>
-      </figure>
+      <div class="col-12 col-sm-6 col-md-4">
+        <figure class="food-item">
+          <img src="${url}" alt="${labelFromUrl(url)}" loading="lazy" class="img-fluid rounded">
+          <figcaption class="small text-center text-muted mt-1">${labelFromUrl(url)}</figcaption>
+        </figure>
+      </div>
     `)
     .join('');
 }

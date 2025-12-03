@@ -11,10 +11,10 @@
   <body class="container my-5">
     <!-- Navigation ribbon -->
     <div class="w-100 bg-light py-3 mb-4">
-      <div class="container d-flex justify-content-start align-items-center gap-3 bg-danger">
+      <div class="container d-flex justify-content-start align-items-center gap-3 flex-wrap">
         <a class="btn btn-danger btn-lg" href="index.html">Home</a>
-        <a class="btn btn-danger btn-lg" href="event.html">Events Page</a>
-        <a class="btn btn-danger btn-lg" href="dining.html">Dining Hall Information</a>
+        <a class="btn btn-danger btn-lg" href="event.html">Events</a>
+        <a class="btn btn-danger btn-lg" href="dining.html">Dining</a>
       </div>
     </div>
 
@@ -24,7 +24,8 @@
     <div id="gpa-calculator">
       <h2>Semester GPA Calculator</h2>
 
-      <table id="gpa-table">
+      <div class="table-responsive">
+        <table id="gpa-table" class="table">
         <thead>
           <tr>
             <th>Credits</th>
@@ -46,14 +47,15 @@
             <td><button class="remove-row">Remove</button></td>
           </tr>
         </tbody>
-      </table>
-
-      <div>
-        <button id="add-row">Add Course</button>
-        <button id="calc">Calculate GPA</button>
+        </table>
       </div>
 
-      <div id="gpa-result"></div>
+      <div class="d-grid gap-2 d-sm-flex mt-3">
+        <button id="add-row" class="btn btn-outline-secondary me-sm-2">Add Course</button>
+        <button id="calc" class="btn btn-primary">Calculate GPA</button>
+      </div>
+
+      <div id="gpa-result" class="mt-3"></div>
     </div>
     <script src="./js/script.js"></script>
   </body>

@@ -8,34 +8,56 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link href = "./css/style.css" rel="stylesheet" />
   </head>
-  <body class="container my-5">
-  <h1 class="text-center mb-5">Campus Super App</h1>
-  <div class="container d-flex flex-column align-items-center mt-5">
-    <div class="d-flex mb-2">
-      <a class="btn btn-danger btn-lg" href="gpa.html">GPA Calculator</a>
-    </div>
-    <div class="d-flex">
-      <p class="mb-0 text-center">Click above to calculate to calculate your semester GPA.</p>
-    </div>
-  </div>
-    <div class="container d-flex flex-column align-items-center mt-5">
-      <div class="d-flex mb-2">
-        <a class="btn btn-danger btn-lg" href="event.html">Events Page</a>
-      </div>
-      <div class="d-flex">
-        <p class="mb-0 text-center">Click above to view upcoming campus events.</p>
-      </div>
-    </div>
-    <div class="container d-flex flex-column align-items-center mt-5">
-      <div class="d-flex mb-2">
-        <a class="btn btn-danger btn-lg" href="dining.html">Dining Hall Information</a>
-      </div>
-      <div class="d-flex">
-        <p class="mb-0 text-center">Click above to see dining hall menus and hours.</p>
-      </div>
-    </div>
-   </body>
-  <script src="script.js"></script>
+  <body>
+    <div class="container my-5">
+      <h1 class="text-center mb-5">Campus Super App</h1>
 
+      <div class="row g-4">
+        <div class="col-12 col-md-4">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <div>
+                <h5 class="card-title">GPA Calculator</h5>
+                <p class="card-text">Calculate your semester GPA quickly.</p>
+              </div>
+              <div class="d-grid gap-2 d-md-block mt-3">
+                <a class="btn btn-danger btn-lg" href="gpa.html">Open GPA</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <div>
+                <h5 class="card-title">Events</h5>
+                <p class="card-text">See upcoming campus events and details.</p>
+              </div>
+              <div class="d-grid gap-2 d-md-block mt-3">
+                <a class="btn btn-danger btn-lg" href="event.html">View Events</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <div>
+                <h5 class="card-title">Dining</h5>
+                <p class="card-text">Browse dining hall hours and menus.</p>
+              </div>
+              <div class="d-grid gap-2 d-md-block mt-3">
+                <a class="btn btn-danger btn-lg" href="dining.html">Dining Info</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+  </body>
 </html>
 
