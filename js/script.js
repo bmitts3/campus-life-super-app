@@ -12,7 +12,7 @@ async function fetchMultiple(n = 3) {
   return Promise.all(Array.from({ length: n }, () => fetchRandomFoodImage()));
 }
 
-// Minimal foodmenu: fetch and render 3 images with labels
+// foodmenu: fetch and render 3 images with labels
 async function foodmenu() {
   const container = document.querySelector('#food-menu');
   if (!container) return;
@@ -26,7 +26,7 @@ async function foodmenu() {
     last = last.replace(/\b\w/g, (c) => c.toUpperCase());
     return last || 'Food Image';
   }
-
+// Render images and labels
   container.innerHTML = urls
     .map((url) => `
       <div class="col-12 col-sm-6 col-md-4">
@@ -45,14 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const table = document.getElementById('gpa-table');
   if (!table) return;
-
+// Grade points mapping
   const points = { A: 4.0, 'A-': 3.7, 'B+': 3.3, B: 3.0, 'B-': 2.7, 'C+': 2.3, C: 2.0, 'C-': 1.7, 'D+': 1.3, D: 1.0, F: 0 };
-
+// add row functionality
   document.getElementById('add-row').addEventListener('click', () => {
     table.querySelector('tbody').insertAdjacentHTML(
       'beforeend',
       '<tr>' +
-        '<td><input type="number" min="0" step="0.5" class="credits" value="3"></td>' +
+        '<td><input type="number" min="0" step="1" class="credits" value="4"></td>' +
         '<td>' +
           '<select class="grade">' +
             '<option value="">Select</option>' +
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
       '</tr>'
     );
   });
-
+  // Remove row functionality
   table.querySelector('tbody').addEventListener('click', (e) => {
     if (e.target.matches('.remove-row')) e.target.closest('tr').remove();
   });
